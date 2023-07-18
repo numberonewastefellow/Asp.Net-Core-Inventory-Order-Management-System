@@ -38,6 +38,10 @@ namespace coderush.Controllers.Api
         public IActionResult Insert([FromBody]CrudViewModel<Customer> payload)
         {
             Customer customer = payload.value;
+            if (string.IsNullOrEmpty(customer.Phone))
+            {
+                return NotFound();
+            }
             _context.Customer.Add(customer);
             _context.SaveChanges();
             return Ok(customer);
